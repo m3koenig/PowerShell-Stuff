@@ -1,5 +1,5 @@
 ﻿
-$DistriText = [System.IO.File]::OpenText('\\srv-dc3\share\Entwicklung\NAV2016.txt')
+$DistriText = [System.IO.File]::OpenText('c:\TEMP\NAV2016.txt')
  
 $ResultArray = @()
 $CurrentObject = ''

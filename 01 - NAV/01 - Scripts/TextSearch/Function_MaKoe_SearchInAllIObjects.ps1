@@ -32,4 +32,4 @@
 
 
 
-MaKoe_SearchInAllObjects -databaseServer 'NB-T520MK\NAVDEMO' -database 'NAV2015_Dev' -SearchString 'Search' -objectPath 'C:\AAA RDP share\Powershell Scripts\TextSearch\objects' -showGrid true -objectsFilter "Version List=*NAVDACH*"
+

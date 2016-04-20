@@ -1,0 +1,1 @@
+powershell .\DiskSpace.ps1

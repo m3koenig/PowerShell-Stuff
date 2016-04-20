@@ -1,11 +1,12 @@
-﻿function NAV.DropNAVEnviroment {
+﻿
+function NAV.DropNAVEnviroment {
     [CmdLetBinding()]
     param(
         [string] $DatabaseServer = [net.dns]::gethostname(),
         [String] $DatabaseInstance = '',
         [string] $DatabaseName = $(throw 'Please specify a database name.'),                
-        [string] $NSTInstanceName = $(throw 'Please specify a Navision Service Tier instance name.')
-                
+        [string] $NSTInstanceName = $(throw 'Please specify a Navision Service Tier instance name.'),
+        [string] $NAVVersion="2016"                
       )
       
     [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.SMO") | Out-Null
@@ -14,8 +15,17 @@
     [Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.SmoEnum") | Out-Null
      
     ## Needed NAV Sources 90=2016
-    Import-Module 'C:\Program Files (x86)\Microsoft Dynamics NAV\90\RoleTailored Client\Microsoft.Dynamics.Nav.Model.Tools.psd1' -WarningAction SilentlyContinue | out-null
-    Import-Module 'C:\Program Files\Microsoft Dynamics NAV\90\Service\NavAdminTool.ps1' -WarningAction SilentlyContinue | Out-Null
+    if ($NAVVersion -eq "2015"){
+        $VersionCode = "80"
+    }
+
+    if ($NAVVersion -eq "2016"){
+        $VersionCode = "90"
+    }
+
+    write-Host -ForegroundColor DarkGray "Load NAV PS Tools from Version $($NAVVersion)/$($VersionCode)..."
+    Import-Module "C:\Program Files (x86)\Microsoft Dynamics NAV\$($VersionCode)\RoleTailored Client\Microsoft.Dynamics.Nav.Model.Tools.psd1" -WarningAction SilentlyContinue | out-null
+    Import-Module "C:\Program Files\Microsoft Dynamics NAV\$($VersionCode)\Service\NavAdminTool.ps1" -WarningAction SilentlyContinue | Out-Null
 
     ## Removes Serverstier
     write-Host -ForegroundColor DarkGray "Remove service tier $($NSTInstanceName)..."
@@ -36,7 +46,7 @@
         write-Host -ForegroundColor Green "Database $($Databasename) of the SQL Server $($FullSQLServer)) droped!"
     }else
     {
-        Write-Host "Database $($Databasename) not exists!"
+        Write-Host -ForegroundColor DarkGray "Database $($Databasename) not exists!"
     }
 
     write-Host -ForegroundColor Green "NAV Enviroment droped!"    
