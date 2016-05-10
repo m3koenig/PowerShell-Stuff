@@ -16,4 +16,4 @@
 
 MaKoe_ExportNAVObjects(, , 'C:\TEMP\Test\Test3\')
 
-Export-NAVApplicationObject -ExportTxtSkipUnlicensed -DatabaseName 'anaptis Develop Administration (7-1)' -DatabaseServer 'NB-T520MK\NAVDEMO' -Path 'C:\TEMP\Test\Test3\NAVobjects.txt' 
+Export-NAVApplicationObject -ExportTxtSkipUnlicensed -DatabaseName 'Develop Administration (7-1)' -DatabaseServer 'NB\NAVDEMO' -Path 'C:\TEMP\Test\Test3\NAVobjects.txt' 
