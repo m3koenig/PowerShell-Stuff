@@ -2,7 +2,9 @@ install-module navcontainerhelper -force -ErrorAction Stop
 Write-Host "okay, nav containerhelper is ready!"
 Write-NavContainerHelperWelcomeText
 
-
+#$imageName = "mcr.microsoft.com/businesscentral/sandbox"
+#$tags = (Get-NavContainerImageTags -imageName $imageName).Tags | Where-Object { $_.contains("de") -and  $_.contains("13")}
+#$tags |Format-Table
 
 
 #New-NavContainer -accept_eula -containerName "MKODevTest" -auth NavUserPassword -imageName "mcr.microsoft.com/businesscentral/sandbox:de-ltsc2019" -useBestContainerOS -includeCSide -shortcuts Desktop -enableSymbolLoading -includeTestToolkit -doNotExportObjectsToText -updateHosts -includeTestLibrariesOnly -clickonce -Verbose
