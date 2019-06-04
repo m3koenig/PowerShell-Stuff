@@ -1,9 +1,11 @@
 #install-module navcontainerhelper -force -ErrorAction Stop
+#update-module navcontainerhelper -force -ErrorAction Stop
 #Write-Host "okay, nav containerhelper is ready!"
 #Write-NavContainerHelperWelcomeText
 
 $containerName = "MKODevTest"
 $imageName = "mcr.microsoft.com/businesscentral/sandbox"
+#$imageName = "mcr.microsoft.com/businesscentral/sandbox:14.0.29537.31313-de-ltsc2019"
 $languageFilter = "de"
 $platformFilter = "ltsc2019"
 
@@ -21,37 +23,21 @@ if ([string]::IsNullOrEmpty($choosenImageTag) -eq $true) {
 }
 $choosenImageTag = "$($imageName):$($choosenImageTag)"
 
-#Mit Console...to-do
-#$cnt = 0
-#foreach ($tag in $tags) {
-#    $cnt += 1
-#    Write-Host "[$($cnt)] - $($tag)"
-#
-#    if (($cnt % 10) -eq 0)
-#    {
-#        $NextTen = Read-Host -Prompt 'next ten?[Y]'
-#        if ($NextTen.ToUpper() -ne "Y")
-#        {
-#            break;
-#        }
-#    }
-#}
-#Write-Host -ForegroundColor Green "$($tags[1])"
-
-
 New-NavContainer -accept_eula `
     -containerName $containerName `
     -auth NavUserPassword `
     -imageName $choosenImageTag `
     -useBestContainerOS `
-    -includeCSide `
+    #-includeCSide `
     -shortcuts Desktop `
     -enableSymbolLoading `
-    -includeTestToolkit `
-    -doNotExportObjectsToText `
+    #-includeTestToolkit `
+    -accept_outdated `
+    -isolation hyperv `
+    #-doNotExportObjectsToText `
     -updateHosts `
     -includeTestLibrariesOnly `
-    -clickonce `
+    -additionalParameters @("--env CustomNavSettings=EnableThreadThrottling=False,EnablePrioritizedThreadThrottling=False") ´    
     -Verbose 
 
 
