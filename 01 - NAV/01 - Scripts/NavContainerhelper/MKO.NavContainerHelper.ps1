@@ -1,9 +1,10 @@
+#update-module  navcontainerhelper -force -ErrorAction Stop
 #install-module navcontainerhelper -force -ErrorAction Stop
 #update-module navcontainerhelper -force -ErrorAction Stop
 #Write-Host "okay, nav containerhelper is ready!"
 #Write-NavContainerHelperWelcomeText
 
-$containerName = "MKODevTest"
+$containerName = "mkodev"
 $imageName = "mcr.microsoft.com/businesscentral/sandbox"
 #$imageName = "mcr.microsoft.com/businesscentral/sandbox:14.0.29537.31313-de-ltsc2019"
 $languageFilter = "de"
@@ -23,22 +24,7 @@ if ([string]::IsNullOrEmpty($choosenImageTag) -eq $true) {
 }
 $choosenImageTag = "$($imageName):$($choosenImageTag)"
 
-New-NavContainer -accept_eula `
-    -containerName $containerName `
-    -auth NavUserPassword `
-    -imageName $choosenImageTag `
-    -useBestContainerOS `
-    #-includeCSide `
-    -shortcuts Desktop `
-    -enableSymbolLoading `
-    #-includeTestToolkit `
-    -accept_outdated `
-    -isolation hyperv `
-    #-doNotExportObjectsToText `
-    -updateHosts `
-    -includeTestLibrariesOnly `
-    -additionalParameters @("--env CustomNavSettings=EnableThreadThrottling=False,EnablePrioritizedThreadThrottling=False") ´    
-    -Verbose 
+New-NavContainer -accept_eula -containerName $containerName -auth NavUserPassword -imageName $choosenImageTag -useBestContainerOS -accept_outdated -shortcuts Desktop -enableSymbolLoading -dumpEventLog -includeTestToolkit -doNotCheckHealth -isolation hyperv -doNotExportObjectsToText -updateHosts -includeTestLibrariesOnly -additionalParameters @("--env CustomNavSettings=EnableThreadThrottling=False,nablePrioritizedThreadThrottling=False") -Verbose 
 
 
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
